@@ -22,22 +22,24 @@ const (
 	Sca = 0
 )
 
-// Inequality determinesif the triangle is possible
+// ZeroOrInfinite returns true if number is zero or infinite.
+func ZeroOrInfinite(a float64) bool {
+	if a == 0 || math.IsInf(a, 0) == true {
+		return true
+	}
+	return false
+}
+
+// Inequality determinesif the triangle is possible.
 func Inequality(a, b, c float64) bool {
 
 	// If any side is zero, wrong triangle
-	if a == 0 || b == 0 || c == 0 {
+	if ZeroOrInfinite(a) || ZeroOrInfinite(b) || ZeroOrInfinite(c) {
 		return false
 	}
 
-	// Check if any side is infinite
-	if math.IsInf(a, 0) == true || math.IsInf(b, 0) == true || math.IsInf(c, 0) == true {
-		return false
-	}
-
-	//Get biggest value
-	maxValue := math.Max(a, b)
-	maxValue = math.Max(maxValue, c)
+	//Get max value
+	maxValue := math.Max(a, math.Max(b, c))
 
 	if 2*maxValue <= a+b+c {
 		return true
@@ -47,10 +49,6 @@ func Inequality(a, b, c float64) bool {
 
 // SameSides calculates how many equal sides a triangle has
 func SameSides(a, c, b float64) int {
-
-	if a == b && a == c {
-		return 3
-	}
 
 	sides := 0
 
@@ -63,10 +61,6 @@ func SameSides(a, c, b float64) int {
 	}
 
 	if b == c {
-		sides++
-	}
-
-	if sides == 1 {
 		sides++
 	}
 
@@ -85,12 +79,12 @@ func KindFromSides(a, b, c float64) Kind {
 
 	var k Kind
 	switch triangleSameSides {
-	case 0:
-		k = Sca
-	case 2:
-		k = Iso
 	case 3:
 		k = Equ
+	case 1:
+		k = Iso
+	default:
+		k = Sca
 	}
 
 	return k
