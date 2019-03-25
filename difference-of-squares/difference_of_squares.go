@@ -3,20 +3,13 @@ package diffsquares
 
 //SquareOfSum gets a natural number and returns the square of sum of numbers from 1..n
 func SquareOfSum(n int) int {
-	total := 0
-	for i := 1; i <= n; i++ {
-		total += i
-	}
+	total := (n * (n + 1)) / 2
 	return total * total
 }
 
 // SumOfSquares gets a natural number and returns the sum of square numbers from 1..n
 func SumOfSquares(n int) int {
-	total := 0
-	for i := 1; i <= n; i++ {
-		total += i * i
-	}
-	return total
+	return n * (2*n*n + 3*n + 1) / 6
 }
 
 // Difference gets a natural number and returns the difference between square of the sums and the sum of quares
