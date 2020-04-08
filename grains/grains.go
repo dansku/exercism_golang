@@ -11,10 +11,10 @@ func Square(squares int) (uint64, error) {
 		return 0, errors.New("Error found")
 	}
 	// 1<<n = 2^n
-	return 1 << (uint(squares - 1)), nil
+	return 1 << uint(squares-1), nil
 }
 
 // Total calculates the total amount of wheat grains on a chessboard
 func Total() uint64 {
-	return 0xFFFFFFFFFFFFFFFF
+	return 1<<64 - 1
 }
