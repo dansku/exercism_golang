@@ -1,0 +1,88 @@
+package main
+
+import "fmt"
+
+func main() {
+	// fmt.Println(2340 % 1000)
+	fmt.Println(ToRomanNumeral(1024))
+}
+
+// ToRomanNumeral gets an arabic number and return a roman number
+func ToRomanNumeral(number int) (string, error) {
+
+	var romanReturn = ""
+
+	// Get thousands
+	var thousand = number / 1000
+
+	for i := 0; i < thousand; i++ {
+		romanReturn += "M"
+	}
+
+	var hundreds int = (number % 1000) / 100
+
+	if hundreds > 0 {
+
+		switch hundreds {
+		case 1, 2, 3:
+			for i := 0; i < hundreds; i++ {
+				romanReturn += "C"
+			}
+
+		case 4:
+			romanReturn += "CD"
+
+		case 5, 6, 7, 8:
+			romanReturn += "D"
+			for i := 0; i < hundreds-5; i++ {
+				romanReturn += "C"
+			}
+
+		default:
+			romanReturn += "CM"
+		}
+
+	}
+
+	var decimals int = (number % 1000 % 100) / 10
+
+	if decimals > 0 {
+		switch decimals {
+		case 1, 2, 3:
+			for i := 0; i < hundreds; i++ {
+				romanReturn += "X"
+			}
+		case 4:
+			romanReturn += "XL"
+		case 5, 6, 7, 8:
+			romanReturn += "L"
+			for i := 0; i < decimals-5; i++ {
+				romanReturn += "X"
+			}
+		default:
+			romanReturn += "XC"
+		}
+	}
+
+	var units int = (number % 1000 % 100 % 10)
+
+	if units > 0 {
+		switch units {
+		case 1, 2, 3:
+			for i := 0; i < units; i++ {
+				romanReturn += "I"
+			}
+		case 4:
+			romanReturn += "IV"
+		case 5, 6, 7, 8:
+			romanReturn += "V"
+			for i := 0; i < units-5; i++ {
+				romanReturn += "I"
+			}
+		default:
+			romanReturn += "IX"
+		}
+	}
+	return romanReturn, nil
+
+}
